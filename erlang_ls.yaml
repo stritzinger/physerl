@@ -1,0 +1,24 @@
+apps_dirs:
+  - "."
+deps_dirs:
+  - "_build/default/lib/*"
+  - "_build/test/lib/*"
+include_dirs:
+  - "include"
+  - "_build/default/lib/"
+  - "_build/default/lib/*/include"
+  - "_build/test/lib/"
+  - "_build/test/lib/*/include"
+diagnostics:
+  enabled:
+    - crossref
+  disabled:
+    - bound_var_in_pattern
+    - unused_includes
+lenses:
+  disabled:
+    - ct-run-test
+    - function-references
+    - server-info
+    - show-behaviour-usages
+    - suggest-spec
