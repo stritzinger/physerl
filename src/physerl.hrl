@@ -1,0 +1,2 @@
+-record(prefix, {sym :: atom(), val :: float()}).
+-record(unit, {sym :: atom(), base :: physerl_si:base(), factor = 1.0}).
