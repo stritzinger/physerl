@@ -39,9 +39,11 @@ sub({Mag1, Units1}, {Mag2, Units2}) ->
         false -> {error, incompatible_units}
     end.
 
--spec mul({float(), physerl_si:base()}, {float(), physerl_si:base()}) -> {ok, {float(), physerl_si:base()}}.
+-spec mul({float(), physerl_si:base() | float()}, {float(), physerl_si:base()}) -> {ok, {float(), physerl_si:base()}}.
 mul({Mag1, Units1}, {Mag2, Units2}) ->
-    {ok, {Mag1 * Mag2, combine_base_units(Units1, Units2)}}.
+    {ok, {Mag1 * Mag2, combine_base_units(Units1, Units2)}};
+mul({Mag1, Units1}, Float) ->
+    {ok, {Mag1 * Float, Units1}}.
 
 -spec divide({float(), physerl_si:base()}, {float(), physerl_si:base()}) -> {ok, {float(), physerl_si:base()}}.
 divide({Mag1, Units1}, {Mag2, Units2}) ->
