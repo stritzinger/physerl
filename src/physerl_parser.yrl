@@ -12,8 +12,6 @@ expression -> quantity : '$1'.
 
 %% A quantity consists of a magnitude and units
 quantity -> magnitud units : {quantity, unwrap('$1'), '$2'}.
-quantity -> quantity '*' quantity : {quantity, resolve_mult('$1', '$3')}.
-quantity -> quantity '/' quantity : {quantity, resolve_divd('$1', '$3')}.
 
 %% Magnitude (just a number, with or without sign)
 magnitud -> '+' number : unwrap('$2').
@@ -22,6 +20,8 @@ magnitud -> number : unwrap('$1').
 
 %% A list of unit_symbol expressions (multiplication and division of units)
 units -> unit : ['$1'].
+units -> '*' units : '$2'.
+units -> '-' units : '$2'.
 units -> unit '*' units : ['$1' | '$3'].
 units -> unit '/' units : ['$1' | add_sign('-', '$3')].
 
@@ -30,6 +30,7 @@ unit -> 'unit?' power : {nil, unwrap('$1'), unwrap('$2')}.
 unit -> 'unit?' unit_symbol power : {unwrap('$1'), unwrap('$2'), unwrap('$3')}.
 unit -> 'unit?' 'unit?' power : {unwrap('$1'), unwrap('$2'), unwrap('$3')}.
 unit -> prefix unit_symbol power : {unwrap('$1'), unwrap('$2'), unwrap('$3')}.
+
 
 %% Edge case handling for 'm' (meter or milli)
 'unit?' -> 'unit_symbol?' : unwrap('$1').
