@@ -1,6 +1,6 @@
 -module(physerl_parser).
 -export([parse/1, parse_and_scan/1, format_error/1]).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 48).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 48).
 
 %% unwrap helps extract values from tokens
 unwrap({_, V}) -> V;
@@ -17,7 +17,7 @@ add_sign(S, N) ->
 
 %% Resolve multiplication of two quantities
 resolve_mult({_, Mag1, Units1}, {_, Mag2, Units2}) ->
-    
+
     NewUnits = simplify_units(Units1, Units2),
     NewMag = Mag1 * Mag2,
     {NewMag, NewUnits}.
@@ -58,7 +58,7 @@ simplify_units_div(Units1, Units2) ->
         Units2
     ).
 
--file("/Users/barbarachassoul/.asdf/installs/erlang/26.2.5.4/lib/parsetools-2.5/include/yeccpre.hrl", 0).
+-file("/Users/barbarachassoul/.asdf/installs/erlang/26.2.5.3/lib/parsetools-2.5/include/yeccpre.hrl", 0).
 %%
 %% %CopyrightBegin%
 %%
@@ -237,7 +237,7 @@ yecctoken2string1(Other) ->
 
 
 
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.erl", 240).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.erl", 240).
 
 -dialyzer({nowarn_function, yeccpars2/7}).
 -compile({nowarn_unused_function,  yeccpars2/7}).
@@ -701,7 +701,7 @@ yeccgoto_units(28=_S, Cat, Ss, Stack, T, Ts, Tzr) ->
 -compile({inline,yeccpars2_1_/1}).
 -dialyzer({nowarn_function, yeccpars2_1_/1}).
 -compile({nowarn_unused_function,  yeccpars2_1_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 7).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 7).
 yeccpars2_1_(__Stack0) ->
  [___1 | __Stack] = __Stack0,
  [begin
@@ -711,7 +711,7 @@ yeccpars2_1_(__Stack0) ->
 -compile({inline,yeccpars2_2_/1}).
 -dialyzer({nowarn_function, yeccpars2_2_/1}).
 -compile({nowarn_unused_function,  yeccpars2_2_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 36).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 36).
 yeccpars2_2_(__Stack0) ->
  [begin
                      nil
@@ -720,7 +720,7 @@ yeccpars2_2_(__Stack0) ->
 -compile({inline,yeccpars2_6_/1}).
 -dialyzer({nowarn_function, yeccpars2_6_/1}).
 -compile({nowarn_unused_function,  yeccpars2_6_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 15).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 15).
 yeccpars2_6_(__Stack0) ->
  [___1 | __Stack] = __Stack0,
  [begin
@@ -730,7 +730,7 @@ yeccpars2_6_(__Stack0) ->
 -compile({inline,yeccpars2_7_/1}).
 -dialyzer({nowarn_function, yeccpars2_7_/1}).
 -compile({nowarn_unused_function,  yeccpars2_7_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 14).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 14).
 yeccpars2_7_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -740,7 +740,7 @@ yeccpars2_7_(__Stack0) ->
 -compile({inline,yeccpars2_8_/1}).
 -dialyzer({nowarn_function, yeccpars2_8_/1}).
 -compile({nowarn_unused_function,  yeccpars2_8_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 13).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 13).
 yeccpars2_8_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -750,7 +750,7 @@ yeccpars2_8_(__Stack0) ->
 -compile({inline,yeccpars2_9_/1}).
 -dialyzer({nowarn_function, yeccpars2_9_/1}).
 -compile({nowarn_unused_function,  yeccpars2_9_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 10).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 10).
 yeccpars2_9_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -760,7 +760,7 @@ yeccpars2_9_(__Stack0) ->
 -compile({inline,yeccpars2_10_/1}).
 -dialyzer({nowarn_function, yeccpars2_10_/1}).
 -compile({nowarn_unused_function,  yeccpars2_10_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 42).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 42).
 yeccpars2_10_(__Stack0) ->
  [begin
                     1
@@ -769,7 +769,7 @@ yeccpars2_10_(__Stack0) ->
 -compile({inline,yeccpars2_11_/1}).
 -dialyzer({nowarn_function, yeccpars2_11_/1}).
 -compile({nowarn_unused_function,  yeccpars2_11_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 18).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 18).
 yeccpars2_11_(__Stack0) ->
  [___1 | __Stack] = __Stack0,
  [begin
@@ -779,7 +779,7 @@ yeccpars2_11_(__Stack0) ->
 -compile({inline,yeccpars2_13_/1}).
 -dialyzer({nowarn_function, yeccpars2_13_/1}).
 -compile({nowarn_unused_function,  yeccpars2_13_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 36).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 36).
 yeccpars2_13_(__Stack0) ->
  [begin
                      nil
@@ -788,7 +788,7 @@ yeccpars2_13_(__Stack0) ->
 -compile({inline,yeccpars2_14_/1}).
 -dialyzer({nowarn_function, yeccpars2_14_/1}).
 -compile({nowarn_unused_function,  yeccpars2_14_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 36).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 36).
 yeccpars2_14_(__Stack0) ->
  [begin
                      nil
@@ -797,7 +797,7 @@ yeccpars2_14_(__Stack0) ->
 -compile({inline,yeccpars2_15_/1}).
 -dialyzer({nowarn_function, yeccpars2_15_/1}).
 -compile({nowarn_unused_function,  yeccpars2_15_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 35).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 35).
 yeccpars2_15_(__Stack0) ->
  [___1 | __Stack] = __Stack0,
  [begin
@@ -807,7 +807,7 @@ yeccpars2_15_(__Stack0) ->
 -compile({inline,yeccpars2_16_/1}).
 -dialyzer({nowarn_function, yeccpars2_16_/1}).
 -compile({nowarn_unused_function,  yeccpars2_16_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 32).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 32).
 yeccpars2_16_(__Stack0) ->
  [___1 | __Stack] = __Stack0,
  [begin
@@ -817,7 +817,7 @@ yeccpars2_16_(__Stack0) ->
 -compile({inline,yeccpars2_17_/1}).
 -dialyzer({nowarn_function, yeccpars2_17_/1}).
 -compile({nowarn_unused_function,  yeccpars2_17_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 20).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 20).
 yeccpars2_17_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -827,7 +827,7 @@ yeccpars2_17_(__Stack0) ->
 -compile({inline,yeccpars2_18_/1}).
 -dialyzer({nowarn_function, yeccpars2_18_/1}).
 -compile({nowarn_unused_function,  yeccpars2_18_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 19).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 19).
 yeccpars2_18_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -837,7 +837,7 @@ yeccpars2_18_(__Stack0) ->
 -compile({inline,yeccpars2_19_/1}).
 -dialyzer({nowarn_function, yeccpars2_19_/1}).
 -compile({nowarn_unused_function,  yeccpars2_19_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 42).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 42).
 yeccpars2_19_(__Stack0) ->
  [begin
                     1
@@ -846,7 +846,7 @@ yeccpars2_19_(__Stack0) ->
 -compile({inline,yeccpars2_20_/1}).
 -dialyzer({nowarn_function, yeccpars2_20_/1}).
 -compile({nowarn_unused_function,  yeccpars2_20_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 28).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 28).
 yeccpars2_20_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -856,7 +856,7 @@ yeccpars2_20_(__Stack0) ->
 -compile({inline,yeccpars2_24_/1}).
 -dialyzer({nowarn_function, yeccpars2_24_/1}).
 -compile({nowarn_unused_function,  yeccpars2_24_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 39).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 39).
 yeccpars2_24_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -866,7 +866,7 @@ yeccpars2_24_(__Stack0) ->
 -compile({inline,yeccpars2_25_/1}).
 -dialyzer({nowarn_function, yeccpars2_25_/1}).
 -compile({nowarn_unused_function,  yeccpars2_25_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 41).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 41).
 yeccpars2_25_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -876,7 +876,7 @@ yeccpars2_25_(__Stack0) ->
 -compile({inline,yeccpars2_26_/1}).
 -dialyzer({nowarn_function, yeccpars2_26_/1}).
 -compile({nowarn_unused_function,  yeccpars2_26_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 40).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 40).
 yeccpars2_26_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -886,7 +886,7 @@ yeccpars2_26_(__Stack0) ->
 -compile({inline,yeccpars2_27_/1}).
 -dialyzer({nowarn_function, yeccpars2_27_/1}).
 -compile({nowarn_unused_function,  yeccpars2_27_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 36).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 36).
 yeccpars2_27_(__Stack0) ->
  [begin
                      nil
@@ -895,7 +895,7 @@ yeccpars2_27_(__Stack0) ->
 -compile({inline,yeccpars2_28_/1}).
 -dialyzer({nowarn_function, yeccpars2_28_/1}).
 -compile({nowarn_unused_function,  yeccpars2_28_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 36).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 36).
 yeccpars2_28_(__Stack0) ->
  [begin
                      nil
@@ -904,7 +904,7 @@ yeccpars2_28_(__Stack0) ->
 -compile({inline,yeccpars2_29_/1}).
 -dialyzer({nowarn_function, yeccpars2_29_/1}).
 -compile({nowarn_unused_function,  yeccpars2_29_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 22).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 22).
 yeccpars2_29_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -914,7 +914,7 @@ yeccpars2_29_(__Stack0) ->
 -compile({inline,yeccpars2_30_/1}).
 -dialyzer({nowarn_function, yeccpars2_30_/1}).
 -compile({nowarn_unused_function,  yeccpars2_30_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 21).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 21).
 yeccpars2_30_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -924,7 +924,7 @@ yeccpars2_30_(__Stack0) ->
 -compile({inline,yeccpars2_31_/1}).
 -dialyzer({nowarn_function, yeccpars2_31_/1}).
 -compile({nowarn_unused_function,  yeccpars2_31_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 42).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 42).
 yeccpars2_31_(__Stack0) ->
  [begin
                     1
@@ -933,7 +933,7 @@ yeccpars2_31_(__Stack0) ->
 -compile({inline,yeccpars2_32_/1}).
 -dialyzer({nowarn_function, yeccpars2_32_/1}).
 -compile({nowarn_unused_function,  yeccpars2_32_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 25).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 25).
 yeccpars2_32_(__Stack0) ->
  [___2,___1 | __Stack] = __Stack0,
  [begin
@@ -943,7 +943,7 @@ yeccpars2_32_(__Stack0) ->
 -compile({inline,yeccpars2_33_/1}).
 -dialyzer({nowarn_function, yeccpars2_33_/1}).
 -compile({nowarn_unused_function,  yeccpars2_33_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 42).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 42).
 yeccpars2_33_(__Stack0) ->
  [begin
                     1
@@ -952,7 +952,7 @@ yeccpars2_33_(__Stack0) ->
 -compile({inline,yeccpars2_34_/1}).
 -dialyzer({nowarn_function, yeccpars2_34_/1}).
 -compile({nowarn_unused_function,  yeccpars2_34_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 26).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 26).
 yeccpars2_34_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -962,7 +962,7 @@ yeccpars2_34_(__Stack0) ->
 -compile({inline,yeccpars2_35_/1}).
 -dialyzer({nowarn_function, yeccpars2_35_/1}).
 -compile({nowarn_unused_function,  yeccpars2_35_/1}).
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 27).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 27).
 yeccpars2_35_(__Stack0) ->
  [___3,___2,___1 | __Stack] = __Stack0,
  [begin
@@ -970,4 +970,4 @@ yeccpars2_35_(__Stack0) ->
   end | __Stack].
 
 
--file("/Users/barbarachassoul/Library/Mobile Documents/com~apple~CloudDocs/physerl/src/physerl_parser.yrl", 105).
+-file("/Users/barbarachassoul/Documents/projects/stritzinger/github/physerl/src/physerl_parser.yrl", 105).

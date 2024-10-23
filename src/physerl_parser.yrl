@@ -62,7 +62,7 @@ add_sign(S, N) ->
 
 %% Resolve multiplication of two quantities
 resolve_mult({_, Mag1, Units1}, {_, Mag2, Units2}) ->
-    
+
     NewUnits = simplify_units(Units1, Units2),
     NewMag = Mag1 * Mag2,
     {NewMag, NewUnits}.

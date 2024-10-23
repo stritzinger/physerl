@@ -67,7 +67,7 @@ prefixes() ->
      #prefix{sym = 'd', val = 1.0e-1},
      #prefix{sym = 'c', val = 1.0e-2},
      #prefix{sym = 'm', val = 1.0e-3},
-     #prefix{sym = 'μ', val = 1.0e-6},
+     #prefix{sym = 'mu', val = 1.0e-6},
      #prefix{sym = 'n', val = 1.0e-9},
      #prefix{sym = 'p', val = 1.0e-12},
      #prefix{sym = 'f', val = 1.0e-15},

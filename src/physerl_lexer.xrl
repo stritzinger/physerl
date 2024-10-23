@@ -20,6 +20,7 @@ k        : {token, {prefix_symbol, 'k'}}.
 g        : {token, {unit_symbol, 'g'}}.
 
 %--- m: Special Case ----------------------------------------------------------
+mu       : {token, {prefix_symbol, 'mu'}}.
 m        : {token, {'unit_symbol?', 'm'}}.
 
 %--- Prefixes -----------------------------------------------------------------
@@ -36,7 +37,6 @@ h        : {token, {prefix_symbol, 'h'}}.
 da       : {token, {prefix_symbol, 'da'}}.
 d        : {token, {prefix_symbol, 'd'}}.
 c        : {token, {prefix_symbol, 'c'}}.
-μ        : {token, {prefix_symbol, 'μ'}}.
 n        : {token, {prefix_symbol, 'n'}}.
 p        : {token, {prefix_symbol, 'p'}}.
 f        : {token, {prefix_symbol, 'f'}}.
