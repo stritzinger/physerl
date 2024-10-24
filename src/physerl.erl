@@ -1,7 +1,7 @@
 -module(physerl).
 
 -export([quantity/1, tokens/1, parse/1]).
--export([add/2, sub/2, mul/2, divide/2, pow/2, root/2]).
+-export([add/2, sub/2, mul/2, divide/2, pow/2, root/2, const/1]).
 
 -export_type([quantity/0]).
 
@@ -11,85 +11,87 @@
 
 %--- Types --------------------------------------------------------------------
 
--opaque quantity() :: {float(), [physerl_si:unit()]}.
+-opaque quantity() :: {float(), physerl_si:unit()}.
 
 %--- API ----------------------------------------------------------------------
 
--spec quantity(string()) -> {ok, quantity()} | {error, term()}.
+-spec quantity(string()) -> quantity().
 quantity(Str) ->
     case parse_quantity(Str) of
         {ok, {quantity, Magnitude, Units}} ->
             case convert_units(Units, Magnitude) of
                 {ok, ConvertedUnits} ->
-                    {ok, ConvertedUnits};
-                Error ->
-                    Error
+                    ConvertedUnits;
+                {error, Reason} ->
+                    throw({conversion_error, Reason})
             end;
-        Error ->
-            Error
+        {error, Reason} ->
+            throw({parsing_error, Reason})
     end.
 
--spec add({float(), physerl_si:base()}, {float(), physerl_si:base()}) ->
-             {ok, {float(), physerl_si:base()}} | {error, incompatible_units}.
+-spec add(quantity(), quantity()) -> quantity().
 add({Mag1, Units1}, {Mag2, Units2}) ->
     case units_equivalent(Units1, Units2) of
         true ->
-            {ok, {Mag1 + Mag2, Units1}};
+            {Mag1 + Mag2, Units1};
         false ->
-            {error, incompatible_units}
+            throw({incompatible_units, Units1, Units2})
     end.
 
--spec sub({float(), physerl_si:base()}, {float(), physerl_si:base()}) ->
-             {ok, {float(), physerl_si:base()}} | {error, incompatible_units}.
+-spec sub(quantity(), quantity()) -> quantity().
 sub({Mag1, Units1}, {Mag2, Units2}) ->
     case units_equivalent(Units1, Units2) of
         true ->
-            {ok, {Mag1 - Mag2, Units1}};
+            {Mag1 - Mag2, Units1};
         false ->
-            {error, incompatible_units}
+            throw({incompatible_units, Units1, Units2})
     end.
 
--spec mul({float(), physerl_si:base() | float()}, {float(), physerl_si:base()}) ->
-             {ok, {float(), physerl_si:base()}}.
+-spec mul({float(), physerl_si:base() | float()}, quantity()) -> quantity().
 mul({Mag1, Units1}, {Mag2, Units2}) ->
-    {ok, {Mag1 * Mag2, combine_base_units(Units1, Units2)}};
-mul({Mag1, Units1}, Float) ->
-    {ok, {Mag1 * Float, Units1}}.
+    {Mag1 * Mag2, combine_base_units(Units1, Units2)};
+mul({Mag1, Units1}, Float) when is_float(Float) ->
+    {Mag1 * Float, Units1}.
 
--spec divide({float(), physerl_si:base()}, {float(), physerl_si:base()}) ->
-                {ok, {float(), physerl_si:base()}}.
-divide({Mag1, Units1}, {Mag2, Units2}) ->
-    {ok, {Mag1 / Mag2, combine_base_units(Units1, inverse_units(Units2))}}.
+-spec divide(quantity(), quantity()) -> quantity().
+divide({Mag1, Units1}, {Mag2, Units2}) when Mag2 =/= 0 ->
+    {Mag1 / Mag2, combine_base_units(Units1, inverse_units(Units2))};
+divide(_, {0, _}) ->
+    throw({division_by_zero}).
 
--spec pow({float(), physerl_si:base()}, integer()) -> {ok, {float(), physerl_si:base()}}.
+-spec pow(quantity(), integer()) -> quantity().
 pow({Magnitude, Units}, Power) ->
     NewMagnitude = math:pow(Magnitude, Power),
     NewUnits = maps:map(fun(_Key, Exponent) -> Exponent * Power end, Units),
-    {ok, {NewMagnitude, NewUnits}}.
+    {NewMagnitude, NewUnits}.
 
--spec root({float(), physerl_si:base()}, integer()) ->
-              {ok, {float(), physerl_si:base()}} | {error, negative_exponent}.
+-spec root(quantity(), integer()) -> quantity().
 root({Magnitude, Units}, Root) when Root > 0 ->
     case lists:all(fun({_Key, Exponent}) -> Exponent rem Root =:= 0 end, maps:to_list(Units))
     of
         true ->
             NewMagnitude = math:pow(Magnitude, 1.0 / Root),
             NewUnits = maps:map(fun(_Key, Exponent) -> Exponent div Root end, Units),
-            {ok, {NewMagnitude, NewUnits}};
+            {NewMagnitude, NewUnits};
         false ->
-            {error, negative_exponent}
+            throw({negative_exponent, Units})
     end.
 
+-spec const(atom()) -> quantity().
+const(X) ->
+    physerl_constants:get(X).
+
 %--- Helpers ------------------------------------------------------------------
+
 -spec convert_units([{atom() | nil, atom(), integer() | nil}], float()) ->
-                       {ok, {float(), physerl_si:base()}} | {error, term()}.
+                       {ok, quantity()}.
 convert_units(UnitList, Magnitude) ->
     foldl_combine_units(UnitList, #{}, Magnitude).
 
 -spec foldl_combine_units([{atom() | nil, atom(), integer() | nil}],
                           physerl_si:base(),
                           float()) ->
-                             {ok, {float(), physerl_si:base()}} | {error, term()}.
+                             {ok, quantity()}.
 foldl_combine_units([], AccBase, Magnitude) ->
     {ok, {Magnitude, AccBase}};
 foldl_combine_units([{Prefix, UnitSym, Power} | Rest], AccBase, Magnitude) ->
@@ -97,38 +99,37 @@ foldl_combine_units([{Prefix, UnitSym, Power} | Rest], AccBase, Magnitude) ->
         {ok, {AdjustedMagnitude, Base}} ->
             UpdatedBase = combine_base_units(AccBase, Base),
             foldl_combine_units(Rest, UpdatedBase, AdjustedMagnitude);
-        Error ->
-            Error
+        {error, Reason} ->
+            throw({unit_conversion_error, Reason})
     end.
 
--spec convert_unit({atom() | nil, atom(), integer() | nil}, float()) ->
-                      {ok, {float(), physerl_si:base()}} | {error, term()}.
+-spec convert_unit({atom() | nil, atom(), integer() | nil}, float()) -> {ok, quantity()}.
 convert_unit({PrefixSym, UnitSym, Power}, Magnitude) ->
     case find_unit(UnitSym) of
         {ok, #unit{base = Base, factor = Factor}} ->
-            case PrefixSym of
-                nil ->
-                    PrefixVal = 1.0;
-                _ ->
-                    case find_prefix(PrefixSym) of
-                        {ok, #prefix{val = Val}} ->
-                            PrefixVal = Val;
-                        _ ->
-                            PrefixVal = 1.0
-                    end
-            end,
-            PowerToUse =
-                case Power of
+            PrefixVal =
+                case PrefixSym of
                     nil ->
-                        1;
+                        1.0;
                     _ ->
-                        Power
+                        case find_prefix(PrefixSym) of
+                            {ok, #prefix{val = Val}} ->
+                                Val;
+                            _ ->
+                                throw({unknown_prefix, PrefixSym})
+                        end
+                end,
+            PowerToUse =
+                if Power == nil ->
+                       1;
+                   true ->
+                       Power
                 end,
             AdjustedMagnitude = Magnitude * PrefixVal * math:pow(Factor, PowerToUse),
             UpdatedBase = update_unit(Base, PowerToUse),
             {ok, {AdjustedMagnitude, UpdatedBase}};
-        Error ->
-            Error
+        {error, Reason} ->
+            throw({unit_not_found, Reason})
     end.
 
 -spec combine_base_units(physerl_si:base(), physerl_si:base()) -> physerl_si:base().
@@ -139,24 +140,24 @@ combine_base_units(Acc, Base) ->
 update_unit(BaseUnits, Power) ->
     maps:map(fun(_Key, Exponent) -> Exponent * Power end, BaseUnits).
 
--spec find_unit(atom()) -> {ok, physerl_si:unit()} | {error, not_found}.
+-spec find_unit(atom()) -> {ok, physerl_si:unit()} | no_return().
 find_unit(UnitSym) ->
     Units = physerl_si:units(),
     case lists:filter(fun(U) -> U#unit.sym =:= UnitSym end, Units) of
         [Unit] ->
             {ok, Unit};
         [] ->
-            {error, not_found}
+            throw({unit_not_found, UnitSym})
     end.
 
--spec find_prefix(atom()) -> {ok, #prefix{}} | {error, not_found}.
+-spec find_prefix(atom()) -> {ok, #prefix{}} | no_return().
 find_prefix(PrefixSym) ->
     Prefixes = physerl_si:prefixes(),
     case lists:filter(fun(P) -> P#prefix.sym =:= PrefixSym end, Prefixes) of
         [Prefix] ->
             {ok, Prefix};
         [] ->
-            {error, not_found}
+            throw({prefix_not_found, PrefixSym})
     end.
 
 -spec units_equivalent(physerl_si:base(), physerl_si:base()) -> boolean().
@@ -172,23 +173,22 @@ parse_quantity(Str) ->
     Tokens = tokens(Str),
     parse(Tokens).
 
--spec tokens(string()) -> {ok, list()} | {error, term()}.
+-spec tokens(string()) -> {ok, list()}.
 tokens(Str) ->
     case physerl_lexer:string(Str) of
         {ok, Tokens, _} ->
             {ok, Tokens};
         {error, {_, physerl_lexer, {_, Reason}}, _} ->
-            {error, Reason}
+            throw({invalid_quantity, Reason})
     end.
 
--spec parse({ok, list()} | {error, term()}) ->
-               {ok, term()} | {error, {syntax_error, term()}}.
+-spec parse({ok, list()} | {error, term()}) -> {ok, term()} | no_return().
 parse({ok, Tokens}) ->
     case physerl_parser:parse(Tokens) of
         {ok, Terms} ->
             {ok, Terms};
         {error, {T, physerl_parser, _}} ->
-            {error, {syntax_error, T}}
+            throw({invalid_quantity, T})
     end;
 parse({error, _} = Error) ->
-    Error.
+    throw({invalid_quantity, Error}).
